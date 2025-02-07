@@ -3,12 +3,12 @@ package es.devirro;
 /**
  * Clase base para representar empleados.
  * @author Irene RODRIGUEZ RODRIGUEZ
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  */
 
 // Clase base Empleado
-public abstract class Empleado {
+public abstract class Empleado implements Comparable<Empleado> {
     private String nombre;
     private String dni;
     private double salario;
@@ -55,5 +55,10 @@ public abstract class Empleado {
                ", dni='" + dni + '\'' +
                ", salario=" + salario +
                '}';
+    }
+
+    @Override
+    public int compareTo(Empleado otro) {
+        return this.dni.compareTo(otro.dni);
     }
 }

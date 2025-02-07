@@ -8,11 +8,11 @@ import java.util.*;
  * @version 1.0
  */
 public class SistemaNominas {
-    private List<Empleado> empleados;
+    private TreeSet<Empleado> empleados;
 
     // Constructor
     public SistemaNominas() {
-        this.empleados = new ArrayList<>();
+        this.empleados = new TreeSet<>();
     }
 
     // Métodos para las opciones del menú
@@ -24,19 +24,21 @@ public class SistemaNominas {
      * @param salario
      * @param bonoAnual
      */
-    public void crearEmpleadoFijo(String nombre, String dni, double salario, double bonoAnual) {
-        empleados.add(new EmpleadoFijo(nombre, dni, salario, bonoAnual));
-    }
-
-    /**
-     * Sirve para crear un empleado eventual.
-     * @param nombre
-     * @param dni
-     * @param salario
-     * @param duracionContrato
-     */
-    public void crearEmpleadoEventual(String nombre, String dni, double salario, int duracionContrato) {
-        empleados.add(new EmpleadoEventual(nombre, dni, salario, duracionContrato));
+    public void crearEmpleado(String tipo, String nombre, String dni, double salario, double bonoOduracion) {
+        Empleado nuevoEmpleado;
+        if (tipo.equalsIgnoreCase("fijo")) {
+            nuevoEmpleado = new EmpleadoFijo(nombre, dni, salario, bonoOduracion);
+        } else if (tipo.equalsIgnoreCase("eventual")) {
+            nuevoEmpleado = new EmpleadoEventual(nombre, dni, salario, (int) bonoOduracion);
+        } else {
+            System.out.println("Tipo de empleado no válido. Debe ser 'fijo' o 'eventual'.");
+            return;
+        }
+        if (empleados.add(nuevoEmpleado)) {
+            System.out.println("Empleado creado con éxito.");
+        } else {
+            System.out.println("El empleado con DNI " + dni + " ya existe.");
+        }
     }
 
     /**
@@ -61,8 +63,8 @@ public class SistemaNominas {
      * Sirve para listar los empleados.
      * @return empleados
      */
-    public List<Empleado> listarEmpleados() {
-        return new ArrayList<>(empleados);
+    public TreeSet<Empleado> listarEmpleados() {
+        return new TreeSet<>(empleados);
     }
 
     /**
@@ -70,9 +72,9 @@ public class SistemaNominas {
      * @return empleados
      */
     public List<Empleado> listarEmpleadosPorSueldo() {
-        List<Empleado> copia = new ArrayList<>(empleados);
-        copia.sort(Comparator.comparingDouble(Empleado::calcularSalario).reversed());
-        return copia;
+        List<Empleado> lista = new ArrayList<>(empleados);
+        lista.sort(Comparator.comparingDouble(Empleado::calcularSalario).reversed());
+        return lista;
     }
 
     /**

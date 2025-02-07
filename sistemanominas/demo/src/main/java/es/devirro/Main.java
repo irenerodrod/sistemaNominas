@@ -6,9 +6,10 @@ import java.util.Scanner;
 /**
  * Clase principal con el método main.
  * @author Irene RODRIGUEZ RODRIGUEZ
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  */
+
 
 public class Main {
     public static void main(String[] args) {
@@ -38,17 +39,17 @@ public class Main {
                     String dni = teclado.next();
                     System.out.print("Salario: ");
                     double salario = teclado.nextDouble();
-                    
+
                     if (tipo.equalsIgnoreCase("fijo")) {
                         System.out.print("Bono anual: ");
                         double bonoAnual = teclado.nextDouble();
-                        sistema.crearEmpleadoFijo(nombre, dni, salario, bonoAnual);
+                        sistema.crearEmpleado(tipo, nombre, dni, salario, bonoAnual);
                     } else if (tipo.equalsIgnoreCase("eventual")) {
                         System.out.print("Duración del contrato (meses): ");
                         int duracionContrato = teclado.nextInt();
-                        sistema.crearEmpleadoEventual(nombre, dni, salario, duracionContrato);
+                        sistema.crearEmpleado(tipo, nombre, dni, salario, duracionContrato);
                     } else {
-                        System.out.println("Tipo de empleado no válido. Debe ser 'fijo' o 'eventual'.");
+                        System.out.println("Tipo de empleado no válido.");
                     }
                     break;
                 case 2:

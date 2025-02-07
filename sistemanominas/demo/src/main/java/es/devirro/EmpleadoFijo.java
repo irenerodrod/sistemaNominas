@@ -3,7 +3,8 @@ package es.devirro;
 /**
  * Clase para representar empleados fijos.
  * @author Irene RODRIGUEZ RODRIGUEZ
- * @version 1.0
+ * @version 2.0
+ * @since 1.0
  */
 
 // Subclase de Empleado para empleados fijos
