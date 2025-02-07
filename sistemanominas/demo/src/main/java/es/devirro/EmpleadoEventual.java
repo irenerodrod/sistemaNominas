@@ -1,5 +1,10 @@
 package es.devirro;
 
+/**
+ * Clase para representar empleados eventuales.
+ * @author Irene RODRIGUEZ RODRIGUEZ
+ * @version 1.0
+ */
 // Subclase de Empleado para empleados eventuales
 public class EmpleadoEventual extends Empleado {
     private int duracionContrato; // en meses

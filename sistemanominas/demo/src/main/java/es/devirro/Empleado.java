@@ -1,5 +1,12 @@
 package es.devirro;
 
+/**
+ * Clase base para representar empleados.
+ * @author Irene RODRIGUEZ RODRIGUEZ
+ * @version 1.0
+ * @since 1.0
+ */
+
 // Clase base Empleado
 public abstract class Empleado {
     private String nombre;

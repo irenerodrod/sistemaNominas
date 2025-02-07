@@ -1,5 +1,11 @@
 package es.devirro;
 
+/**
+ * Clase para representar empleados fijos.
+ * @author Irene RODRIGUEZ RODRIGUEZ
+ * @version 1.0
+ */
+
 // Subclase de Empleado para empleados fijos
 public class EmpleadoFijo extends Empleado {
     private double bonoAnual;

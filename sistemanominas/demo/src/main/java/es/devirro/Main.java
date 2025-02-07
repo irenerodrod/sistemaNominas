@@ -3,6 +3,13 @@ package es.devirro;
 // Clase principal con el método main
 import java.util.Scanner;
 
+/**
+ * Clase principal con el método main.
+ * @author Irene RODRIGUEZ RODRIGUEZ
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Main {
     public static void main(String[] args) {
         SistemaNominas sistema = new SistemaNominas();
