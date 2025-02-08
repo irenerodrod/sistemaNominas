@@ -8,36 +8,39 @@ import java.util.*;
  * @version 1.0
  */
 public class SistemaNominas {
-    private TreeSet<Empleado> empleados;
+    private Map<String, Empleado> empleados;
 
     // Constructor
     public SistemaNominas() {
-        this.empleados = new TreeSet<>();
+        this.empleados = new TreeMap<>();
     }
 
     // Métodos para las opciones del menú
 
     /**
      * Sirve para crear un empleado fijo.
+     * @param tipo
      * @param nombre
      * @param dni
      * @param salario
      * @param bonoAnual
      */
-    public void crearEmpleado(String tipo, String nombre, String dni, double salario, double bonoOduracion) {
+    public void crearEmpleado(String tipo, String nombre, String dni, double salario, double bonoAnual) {
         Empleado nuevoEmpleado;
         if (tipo.equalsIgnoreCase("fijo")) {
-            nuevoEmpleado = new EmpleadoFijo(nombre, dni, salario, bonoOduracion);
+            nuevoEmpleado = new EmpleadoFijo(nombre, dni, salario, bonoAnual);
         } else if (tipo.equalsIgnoreCase("eventual")) {
-            nuevoEmpleado = new EmpleadoEventual(nombre, dni, salario, (int) bonoOduracion);
+            nuevoEmpleado = new EmpleadoEventual(nombre, dni, salario, (int) bonoAnual);
         } else {
             System.out.println("Tipo de empleado no válido. Debe ser 'fijo' o 'eventual'.");
             return;
         }
-        if (empleados.add(nuevoEmpleado)) {
-            System.out.println("Empleado creado con éxito.");
-        } else {
+
+        if (empleados.containsKey(dni)) {
             System.out.println("El empleado con DNI " + dni + " ya existe.");
+        } else {
+            empleados.put(dni, nuevoEmpleado);
+            System.out.println("Empleado creado con éxito.");
         }
     }
 
@@ -47,7 +50,7 @@ public class SistemaNominas {
      * @return
      */
     public Empleado consultarEmpleado(String dni) {
-        return empleados.stream().filter(e -> e.getDni().equals(dni)).findFirst().orElse(null);
+        return empleados.get(dni);
     }
 
     /**
@@ -56,15 +59,19 @@ public class SistemaNominas {
      * @return
      */
     public boolean eliminarEmpleado(String dni) {
-        return empleados.removeIf(e -> e.getDni().equals(dni));
+        if (empleados.containsKey(dni)) {
+            empleados.remove(dni);
+            return true;
+        }
+        return false;
     }
 
     /**
      * Sirve para listar los empleados.
      * @return empleados
      */
-    public TreeSet<Empleado> listarEmpleados() {
-        return new TreeSet<>(empleados);
+    public Collection<Empleado> listarEmpleados() {
+        return empleados.values();
     }
 
     /**
@@ -72,7 +79,7 @@ public class SistemaNominas {
      * @return empleados
      */
     public List<Empleado> listarEmpleadosPorSueldo() {
-        List<Empleado> lista = new ArrayList<>(empleados);
+        List<Empleado> lista = new ArrayList<>(empleados.values());
         lista.sort(Comparator.comparingDouble(Empleado::calcularSalario).reversed());
         return lista;
     }
@@ -82,6 +89,6 @@ public class SistemaNominas {
      * @return total
      */
     public double consultarTotalSalarios() {
-        return empleados.stream().mapToDouble(Empleado::calcularSalario).sum();
+        return empleados.values().stream().mapToDouble(Empleado::calcularSalario).sum();
     }
 }
